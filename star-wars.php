@@ -3,16 +3,20 @@
 /**
  * Plugin Name: Star Wars Plugin
  */
+
 if (!defined('ABSPATH')) {
     exit;
 }
+
 function register_starwars()
 {
     register_widget('Star_Wars_Widget');
 }
+
 require_once(plugin_dir_path(__FILE__) . './includes/star-wars-scripts.php');
 require_once(plugin_dir_path(__FILE__) . './includes/star-wars-class.php');
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
 function get_ships()
 {
     $ships = array();
@@ -73,6 +77,7 @@ function database_table()
         );
     }
 }
+
 function delete_database_on_deactivation()
 {
     global $wpdb;
@@ -80,6 +85,8 @@ function delete_database_on_deactivation()
     $sql = "DROP TABLE IF EXISTS $table_name";
     $wpdb->query($sql);
 }
+
 register_activation_hook(__FILE__, 'database_table');
 register_deactivation_hook(__FILE__, 'delete_database_on_deactivation');
+
 add_action('widgets_init', 'register_starwars');
